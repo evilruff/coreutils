@@ -60,15 +60,16 @@ void    TimerPool::processEvents(int totalTimeoutMs) {
         }
     }
 
+    m_poolLock.unlock();
+
     if (totalTimeoutMs) {
         ExecutionTimestamp processTime = std::chrono::steady_clock::now();
         std::chrono::milliseconds currentTimeout = std::chrono::duration_cast<std::chrono::milliseconds>(processTime  - currentTime);
         if (totalTimeoutMs > currentTimeout.count()) {
+            m_poolLock.unlock();
             std::this_thread::sleep_for(std::chrono::milliseconds(totalTimeoutMs - currentTimeout.count()));
         }
     }
-
-    m_poolLock.unlock();
 }
 
 int     TimerPool::create(int timeout, timerCallback f, const std::string & name) {
