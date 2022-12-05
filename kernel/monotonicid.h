@@ -25,7 +25,7 @@ public:
         return m_items == other.m_items;
     }
 
-    int keysCount() const { return m_items.size(); }
+    int keysCount() const { return std::tuple_size<std::tuple<Ts...>>{}; };
     const std::tuple<Ts...> & key() const { return m_items; };
 
 private:
