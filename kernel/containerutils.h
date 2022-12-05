@@ -8,14 +8,6 @@
 class MapUtils { 
 public:
 
-    template< typename Sk, typename Dk, typename Sv>    static      void
-        convertKeys(const std::map<Sk, Sv> & s, std::map<Dk, Sv> & d, std::function<Dk(Sk v)> f) {
-        d.clear();
-        for (auto it = s.begin(); it != s.end(); ++it) {
-            d[f(it->first)] = it->second;
-        }
-    }
-
     template< typename Sk, typename Sv>    static      void
         stringifyKeys(const std::map<Sk, Sv> & s, std::map<std::string, Sv> & d) {
         d.clear();
